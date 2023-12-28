@@ -13,6 +13,8 @@ PASSWORD = 'WebscrapingLinkedin50'
 chrome_driver_path = 'chromedriver.exe'
 options = webdriver.ChromeOptions()
 options.add_argument("--headless")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
 driver = webdriver.Chrome(options=options)
 app = FastAPI()
 
@@ -274,7 +276,10 @@ def scrape_user(request: ScrapeUser):
     try:
         nombre_usuario = div_perfil.find_element(By.CSS_SELECTOR, 'span.artdeco-hoverable-trigger.artdeco-hoverable-trigger--content-placed-bottom.artdeco-hoverable-trigger--is-hoverable.ember-view').text
     except:
-        logging.warning( 'No se encontró nombre usuario')
+        try:
+            nombre_usuario = driver.find_element(By.TAG_NAME, 'h1').text
+        except:
+            logging.warning( 'No se encontró nombre usuario')
 
     #Caption
     caption = ''
@@ -341,7 +346,7 @@ def scrape_user(request: ScrapeUser):
 
 
     try:
-        lista_experiencias = driver.find_element(By.CLASS_NAME, 'pvs-list ').find_elements(By.XPATH, '*')
+        lista_experiencias = driver.find_element(By.CLASS_NAME, 'pvs-list').find_elements(By.XPATH, '*')
     except:
         logging.warning( 'No se encontró lista experiencias')
         
@@ -400,7 +405,7 @@ def scrape_user(request: ScrapeUser):
                 seccion_educacion = seccion
 
         lista_educaciones=[]
-        lista_educaciones = seccion_educacion.find_element(By.CLASS_NAME, 'pvs-list ').find_elements(By.XPATH, '*')
+        lista_educaciones = seccion_educacion.find_element(By.CLASS_NAME, 'pvs-list').find_elements(By.XPATH, '*')
     except:
         logging.warning( 'No se encontró lista educacion')
 
