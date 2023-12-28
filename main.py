@@ -246,7 +246,7 @@ def scrape_company(request: ScrapeCompany):
 def scrape_user(request: ScrapeUser):
     url = request.url
     driver.get(url)
-    print(driver.get_attribute('innerHTML'))
+    print(driver.page_source)
     try:
         time.sleep(1)
         driver.find_element(By.CSS_SELECTOR, '#public_profile_contextual-sign-in > div > section > button').click()
