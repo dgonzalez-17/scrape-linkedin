@@ -26,6 +26,9 @@ driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () =>
 # driver = webdriver.Chrome(options=options)
 app = FastAPI()
 
+useragent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"
+driver.execute_cdp_cmd("Network.setUserAgentOverride", {"userAgent": useragent}) 
+
 
 class ScrapeCompany(BaseModel):
     url: str
