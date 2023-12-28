@@ -6,16 +6,19 @@ import logging
 import time
 from pydantic import BaseModel
 logging.basicConfig(format='%(asctime)s %(message)s')
+import os
 
 EMAIL = 'pruebaws50@gmail.com'
 PASSWORD = 'WebscrapingLinkedin50'
 
-chrome_driver_path = 'chromedriver.exe'
+# chrome_driver_path = 'chromedriver.exe'
 options = webdriver.ChromeOptions()
+options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 options.add_argument("--headless")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
-driver = webdriver.Chrome(options=options)
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH")) 
+# driver = webdriver.Chrome(options=options)
 app = FastAPI()
 
 
