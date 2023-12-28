@@ -265,12 +265,27 @@ def scrape_user(request: ScrapeUser):
     elem.send_keys(Keys.END)
 
     #Nombre
-    seccion_perfil = driver.find_element(By.CSS_SELECTOR, '[data-member-id]')
-    div_perfil = seccion_perfil.find_element(By.CLASS_NAME, 'mt2.relative')
-    divs = div_perfil.find_elements(By.TAG_NAME, 'div')
-    ul = div_perfil.find_element(By.TAG_NAME, 'ul')
-
-    secciones = driver.find_elements(By.CSS_SELECTOR, '[data-view-name="profile-card"]')
+    try:
+        seccion_perfil = driver.find_element(By.CSS_SELECTOR, '[data-member-id]')
+    except:
+        logging.warning('No econtrada seccion perfil')
+    try:
+        div_perfil = seccion_perfil.find_element(By.CLASS_NAME, 'mt2.relative')
+    except:
+        logging.warning('No econtrado div perfil')
+    try:
+        divs = div_perfil.find_elements(By.TAG_NAME, 'div')
+    except:
+        logging.warning('No econtrada seccion divs')
+    try:
+        ul = div_perfil.find_element(By.TAG_NAME, 'ul')
+    except:
+        logging.warning('No econtrada seccion ul')
+    
+    try:
+        secciones = driver.find_elements(By.CSS_SELECTOR, '[data-view-name="profile-card"]')
+    except:
+        logging.warning('No econtrada seccion secciones')
 
     nombre_usuario = ''
     try:
