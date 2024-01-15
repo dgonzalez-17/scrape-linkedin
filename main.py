@@ -15,6 +15,9 @@ PASSWORD = 'WebscrapingLinkedin50'
 # chrome_driver_path = 'chromedriver.exe'
 options = webdriver.ChromeOptions()
 options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+options.add_argument("start-maximized")
+ptions.add_argument("--disable-blink-features=AutomationControlled")
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_argument("--headless")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
@@ -26,7 +29,7 @@ driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () =>
 # driver = webdriver.Chrome(options=options)
 app = FastAPI()
 
-useragent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"
+useragent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 driver.execute_cdp_cmd("Network.setUserAgentOverride", {"userAgent": useragent}) 
 
 
