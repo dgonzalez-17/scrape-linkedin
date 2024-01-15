@@ -8,6 +8,7 @@ from pydantic import BaseModel
 logging.basicConfig(format='%(asctime)s %(message)s')
 import os
 from selenium.webdriver.chrome.service import Service
+import pickle
 
 EMAIL = 'pruebaws50@gmail.com'
 PASSWORD = 'WebscrapingLinkedin50'
@@ -42,6 +43,9 @@ class ScrapeUser(BaseModel):
 def scrape_company(request: ScrapeCompany):
     url = request.url
     driver.get(url)
+    cookies = pickle.load(open("cookies.pkl", "rb"))
+    for cookie in cookies:
+        driver.add_cookie(cookie)
     try:
         time.sleep(1)
         driver.find_element(By.CSS_SELECTOR, 'icon.contextual-sign-in-modal__modal-dismiss-icon.lazy-loaded').click()
@@ -566,5 +570,6 @@ def scrape_user(request: ScrapeUser):
 
     persona = {'name':nombre_usuario, 'caption':caption, 'topics':topics, 'institutions':institutions, 'location':ubicacion,'website':website,
             'about':acerca_de, 'experiencies':experiencies, 'education':educaciones, 'projects':proyectos, 'skills':conocimientos,'publications':publicaciones, 'charity':causas, 'honors':logros, 'languages':idiomas}
-
+    import pickle
+    pickle.dump(driver.get_cookies(), open('cookies.pkl', 'wb'))
     return persona
