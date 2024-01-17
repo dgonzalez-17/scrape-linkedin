@@ -287,13 +287,13 @@ def scrape_user(request: ScrapeUser):
         def escribir_letra_por_letra(campo, texto):
             for caracter in texto:
                 campo.send_keys(caracter)
-                time.sleep(random.random())
+                time.sleep(random.random()/2)
 
-        time.sleep(1.37492)
+        time.sleep(random.random())
         escribir_letra_por_letra(email_field, EMAIL)
-        time.sleep(2.78549)
+        time.sleep(random.random())
         escribir_letra_por_letra(password_field, PASSWORD)
-        time.sleep(2.127302)
+        time.sleep(random.random())
         logging.info("Escribí correo y contraseña")
         print("Escribí correo y contraseña")
         print(driver.current_url)
