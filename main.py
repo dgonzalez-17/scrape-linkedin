@@ -13,6 +13,8 @@ import pickle
 EMAIL = 'pruebaws50@gmail.com'
 PASSWORD = 'WebscrapingLinkedin50'
 
+PROXY = "11.456.448.110:8080"
+
 # chrome_driver_path = 'chromedriver.exe'
 options = webdriver.ChromeOptions()
 options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
@@ -29,6 +31,7 @@ options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--disable-blink-features=AutomationControlled") 
 options.add_experimental_option("excludeSwitches", ["enable-automation"]) 
 options.add_experimental_option("useAutomationExtension", False) 
+options.add_argument('--proxy-server=%s' % PROXY)
 driver = webdriver.Chrome(service = Service(os.environ.get("CHROMEDRIVER_PATH")), options=options)
 driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})") 
 # driver = webdriver.Chrome(options=options)
@@ -50,6 +53,7 @@ def scrape_company(request: ScrapeCompany):
     cookies = pickle.load(open("cookies.pkl", "rb"))
     for cookie in cookies:
         driver.add_cookie(cookie)
+    time.sleep(5)
     try:
         time.sleep(1)
         driver.find_element(By.CSS_SELECTOR, 'icon.contextual-sign-in-modal__modal-dismiss-icon.lazy-loaded').click()
