@@ -50,10 +50,10 @@ class ScrapeUser(BaseModel):
 def scrape_company(request: ScrapeCompany):
     url = request.url
     driver.get(url)
-    cookies = pickle.load(open("cookies.pkl", "rb"))
+    cookies = pkl.load(open("cookies.pkl", "rb"))
     for cookie in cookies:
         driver.add_cookie(cookie)
-    time.sleep(5)
+    time.sleep(2)
     try:
         time.sleep(1)
         driver.find_element(By.CSS_SELECTOR, 'icon.contextual-sign-in-modal__modal-dismiss-icon.lazy-loaded').click()
@@ -273,7 +273,6 @@ def scrape_user(request: ScrapeUser):
         cookies = pkl.load(open("cookies.pkl", "rb"))
         for cookie in cookies:
             driver.add_cookie(cookie)
-        time.sleep(5)
         email_field = driver.find_element(By.ID, 'username')
         password_field = driver.find_element(By.ID, 'password')
         
@@ -284,7 +283,7 @@ def scrape_user(request: ScrapeUser):
 
         escribir_letra_por_letra(email_field, EMAIL)
         escribir_letra_por_letra(password_field, PASSWORD)
-        time.sleep(random.random())
+        time.sleep(0.2)
         logging.info("Escribí correo y contraseña")
         print("Escribí correo y contraseña")
         print(driver.current_url)
@@ -303,7 +302,6 @@ def scrape_user(request: ScrapeUser):
     print(driver.current_url)
 
     try:
-        time.sleep(1.42)
         driver.find_element(By.CSS_SELECTOR, '#public_profile_contextual-sign-in > div > section > button').click()
         logging.info('Clic iniciar sesion')
         print("Clic iniciar sesion")
@@ -314,7 +312,6 @@ def scrape_user(request: ScrapeUser):
         
     try:
         driver.find_element(By.CSS_SELECTOR, 'body > header > nav > div > a.nav__button-secondary.btn-md.btn-secondary-emphasis').click()
-        time.sleep(1.56)
         email_field = driver.find_element(By.CSS_SELECTOR, '#username')
         password_field = driver.find_element(By.CSS_SELECTOR, '#password')
         
@@ -325,7 +322,6 @@ def scrape_user(request: ScrapeUser):
 
         escribir_letra_por_letra(email_field, EMAIL)
         escribir_letra_por_letra(password_field, PASSWORD)
-        time.sleep(random.random())
         logging.info("Escribí correo y contraseña")
         print("Escribí correo y contraseña")
         print(driver.current_url)
@@ -414,7 +410,7 @@ def scrape_user(request: ScrapeUser):
         for seccion in secciones:
             if seccion.text.startswith('Acerca de'):
                 seccion_acerca = seccion
-        time.sleep(5)
+        time.sleep(2)
         seccion_acerca.find_element(By.CSS_SELECTOR,'[role="button"]').click()
         acerca_de = seccion_acerca.text.replace('Acerca de\n','')
     except:
@@ -428,7 +424,7 @@ def scrape_user(request: ScrapeUser):
     #Experiencia
         
     try:
-        time.sleep(5)
+        time.sleep(2)
         driver.find_element(By.CSS_SELECTOR, '#navigation-index-see-all-experiences').click()
     except:
         logging.warning( 'Interceptado click ver todas las experiencias')  
