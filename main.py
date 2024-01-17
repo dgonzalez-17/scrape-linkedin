@@ -289,6 +289,7 @@ def scrape_user(request: ScrapeUser):
     except:
         print(driver.current_url)
         logging.warning('No fue necesario iniciar sesión en el nuevo link u ocurrió un error intentándolo')
+        print(driver.page_source)
     
 
     driver.get(url)
