@@ -282,9 +282,12 @@ def scrape_user(request: ScrapeUser):
         driver.find_element(By.CSS_SELECTOR, 'body > header > nav > div > a.nav__button-secondary.btn-md.btn-secondary-emphasis').click()
         email_field = driver.find_element(By.CSS_SELECTOR, '#username')
         password_field = driver.find_element(By.CSS_SELECTOR, '#password')
-
+        
+        time.sleep(1.37492)
         email_field.send_keys(EMAIL)
+        time.sleep(2.78549)
         password_field.send_keys(PASSWORD)
+        time.sleep(2.127302)
         logging.info("Escribí correo y contraseña")
         print("Escribí correo y contraseña")
         print(driver.current_url)
