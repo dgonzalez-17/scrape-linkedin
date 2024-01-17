@@ -322,6 +322,8 @@ def scrape_user(request: ScrapeUser):
         text_file.close()
         
         print('guardado en txt')
+
+        return driver.page_source
         
     try:
         driver.find_element(By.CSS_SELECTOR, 'body > header > nav > div > a.nav__button-secondary.btn-md.btn-secondary-emphasis').click()
