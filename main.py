@@ -293,14 +293,12 @@ def scrape_user(request: ScrapeUser):
     except:
         print(driver.current_url)
         logging.warning('No fue necesario iniciar sesión en el nuevo link u ocurrió un error intentándolo')
-        print(driver.page_source)
     
 
     driver.get(url)
     cookies = pkl.load(open("cookies.pkl", "rb"))
     for cookie in cookies:
         driver.add_cookie(cookie)
-    time.sleep(5)
     logging.info('Ingreso al url')
     print(driver.current_url)
 
@@ -313,7 +311,17 @@ def scrape_user(request: ScrapeUser):
     except:
         print(driver.current_url)
         logging.warning('No se encontró el botón para cerrar el modal de "registrate / inicia sesión"')
-        print(driver.page_source[10000:20000])
+
+        #open text file
+        text_file = open("data.txt", "w")
+        
+        #write string to file
+        text_file.write(driver.page_source)
+        
+        #close file
+        text_file.close()
+        
+        print('guardado en txt')
         
     try:
         driver.find_element(By.CSS_SELECTOR, 'body > header > nav > div > a.nav__button-secondary.btn-md.btn-secondary-emphasis').click()
