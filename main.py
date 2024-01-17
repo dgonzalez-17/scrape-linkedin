@@ -271,8 +271,9 @@ def scrape_user(request: ScrapeUser):
     print(driver.current_url)
 
     try:
-        time.sleep(1)
+        time.sleep(1.42)
         driver.find_element(By.CSS_SELECTOR, '#public_profile_contextual-sign-in > div > section > button').click()
+        time.sleep(2.912)
         logging.info('Clic iniciar sesion')
         print("Clic iniciar sesion")
         print(driver.current_url)
@@ -281,6 +282,7 @@ def scrape_user(request: ScrapeUser):
         
     try:
         driver.find_element(By.CSS_SELECTOR, 'body > header > nav > div > a.nav__button-secondary.btn-md.btn-secondary-emphasis').click()
+        time.sleep(1.56)
         email_field = driver.find_element(By.CSS_SELECTOR, '#username')
         password_field = driver.find_element(By.CSS_SELECTOR, '#password')
         
