@@ -13,7 +13,6 @@ import pickle
 EMAIL = 'pruebaws50@gmail.com'
 PASSWORD = 'WebscrapingLinkedin50'
 
-PROXY = "11.456.448.110:8080"
 
 # chrome_driver_path = 'chromedriver.exe'
 options = webdriver.ChromeOptions()
@@ -31,7 +30,6 @@ options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--disable-blink-features=AutomationControlled") 
 options.add_experimental_option("excludeSwitches", ["enable-automation"]) 
 options.add_experimental_option("useAutomationExtension", False) 
-options.add_argument('--proxy-server=%s' % PROXY)
 driver = webdriver.Chrome(service = Service(os.environ.get("CHROMEDRIVER_PATH")), options=options)
 driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})") 
 # driver = webdriver.Chrome(options=options)
@@ -268,10 +266,14 @@ def scrape_company(request: ScrapeCompany):
 def scrape_user(request: ScrapeUser):
     url = request.url
     driver.get(url)
+    logging.info('Ingreso al url')
+    print(driver.current_url)
 
     try:
         time.sleep(1)
         driver.find_element(By.CSS_SELECTOR, '#public_profile_contextual-sign-in > div > section > button').click()
+        logging.info('Clic iniciar sesion')
+        print(driver.current_url)
     except:
         logging.warning('No se encontró el botón para cerrar el modal de "registrate / inicia sesión"')
         
@@ -283,10 +285,11 @@ def scrape_user(request: ScrapeUser):
         email_field.send_keys(EMAIL)
         password_field.send_keys(PASSWORD)
         logging.info("Escribí correo y contraseña")
+        print(driver.current_url)
 
         driver.find_element(By.CSS_SELECTOR, '#organic-div > form > div.login__form_action_container > button').click()
     except:
-        print(driver.page_source)
+        print(driver.current_url)
         logging.warning('No fue necesario iniciar sesión u ocurrió un error intentándolo')
 
     elem = driver.find_element(By.TAG_NAME, "html")
