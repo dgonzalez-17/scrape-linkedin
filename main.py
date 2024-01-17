@@ -273,6 +273,7 @@ def scrape_user(request: ScrapeUser):
         time.sleep(1)
         driver.find_element(By.CSS_SELECTOR, '#public_profile_contextual-sign-in > div > section > button').click()
         logging.info('Clic iniciar sesion')
+        print("Clic iniciar sesion")
         print(driver.current_url)
     except:
         logging.warning('No se encontró el botón para cerrar el modal de "registrate / inicia sesión"')
@@ -285,13 +286,14 @@ def scrape_user(request: ScrapeUser):
         email_field.send_keys(EMAIL)
         password_field.send_keys(PASSWORD)
         logging.info("Escribí correo y contraseña")
+        print("Escribí correo y contraseña")
         print(driver.current_url)
 
         driver.find_element(By.CSS_SELECTOR, '#organic-div > form > div.login__form_action_container > button').click()
     except:
         print(driver.current_url)
         logging.warning('No fue necesario iniciar sesión u ocurrió un error intentándolo')
-
+    print(driver.current_url)
     elem = driver.find_element(By.TAG_NAME, "html")
     elem.send_keys(Keys.END)
 
