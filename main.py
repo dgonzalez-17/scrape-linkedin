@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from selenium import webdriver
+from fastapi.middleware.cors import CORSMiddleware
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import logging
@@ -10,6 +11,9 @@ import os
 from selenium.webdriver.chrome.service import Service
 import pickle as pkl
 import random
+
+
+
 
 EMAIL = 'pruebaws50@gmail.com'
 PASSWORD = 'WebscrapingLinkedin50'
@@ -36,7 +40,13 @@ driver = webdriver.Chrome(service = Service(os.environ.get("CHROMEDRIVER_PATH"))
 driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})") 
 # driver = webdriver.Chrome(options=options)
 app = FastAPI()
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 useragent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 driver.execute_cdp_cmd("Network.setUserAgentOverride", {"userAgent": useragent}) 
 
