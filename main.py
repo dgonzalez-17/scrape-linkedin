@@ -269,8 +269,8 @@ def scrape_user(request: ScrapeUser):
 
     try:
         driver.get('https://www.linkedin.com/checkpoint/rm/sign-in-another-account')
-        email_field = driver.find_element(By.CSS_SELECTOR, '#username')
-        password_field = driver.find_element(By.CSS_SELECTOR, '#password')
+        email_field = driver.find_element(By.ID, 'username')
+        password_field = driver.find_element(By.ID, 'password')
         
         def escribir_letra_por_letra(campo, texto):
             for caracter in texto:
@@ -283,7 +283,8 @@ def scrape_user(request: ScrapeUser):
         logging.info("Escribí correo y contraseña")
         print("Escribí correo y contraseña")
         print(driver.current_url)
-        driver.find_element(By.CSS_SELECTOR, '#organic-div > form > div.login__form_action_container > button').click()
+        driver.find_element(By.CSS_SELECTOR, 'button[type="submit"]').click()
+        print(driver.current_url)
     except:
         print(driver.current_url)
         logging.warning('No fue necesario iniciar sesión en el nuevo link u ocurrió un error intentándolo')
