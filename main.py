@@ -31,7 +31,7 @@ options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--disable-blink-features=AutomationControlled") 
 options.add_experimental_option("excludeSwitches", ["enable-automation"]) 
 options.add_experimental_option("useAutomationExtension", False) 
-options.add_argument('proxy-server=106.122.8.54:3128')
+# options.add_argument('proxy-server=106.122.8.54:3128')
 driver = webdriver.Chrome(service = Service(os.environ.get("CHROMEDRIVER_PATH")), options=options)
 driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})") 
 # driver = webdriver.Chrome(options=options)
@@ -270,6 +270,10 @@ def scrape_user(request: ScrapeUser):
 
     try:
         driver.get('https://www.linkedin.com/checkpoint/rm/sign-in-another-account')
+        cookies = pickle.load(open("cookies.pkl", "rb"))
+        for cookie in cookies:
+            driver.add_cookie(cookie)
+        time.sleep(5)
         email_field = driver.find_element(By.ID, 'username')
         password_field = driver.find_element(By.ID, 'password')
         
@@ -293,6 +297,10 @@ def scrape_user(request: ScrapeUser):
     
 
     driver.get(url)
+    cookies = pickle.load(open("cookies.pkl", "rb"))
+    for cookie in cookies:
+        driver.add_cookie(cookie)
+    time.sleep(5)
     logging.info('Ingreso al url')
     print(driver.current_url)
 
