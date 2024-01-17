@@ -273,7 +273,6 @@ def scrape_user(request: ScrapeUser):
     try:
         time.sleep(1.42)
         driver.find_element(By.CSS_SELECTOR, '#public_profile_contextual-sign-in > div > section > button').click()
-        time.sleep(2.912)
         logging.info('Clic iniciar sesion')
         print("Clic iniciar sesion")
         print(driver.current_url)
@@ -289,11 +288,9 @@ def scrape_user(request: ScrapeUser):
         def escribir_letra_por_letra(campo, texto):
             for caracter in texto:
                 campo.send_keys(caracter)
-                time.sleep(random.random()/2)
+                time.sleep(0.1)
 
-        time.sleep(random.random())
         escribir_letra_por_letra(email_field, EMAIL)
-        time.sleep(random.random())
         escribir_letra_por_letra(password_field, PASSWORD)
         time.sleep(random.random())
         logging.info("Escribí correo y contraseña")
