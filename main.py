@@ -311,7 +311,9 @@ def scrape_user(request: ScrapeUser):
         print("Clic iniciar sesion")
         print(driver.current_url)
     except:
+        print(driver.current_url)
         logging.warning('No se encontró el botón para cerrar el modal de "registrate / inicia sesión"')
+        print(driver.page_source)
         
     try:
         driver.find_element(By.CSS_SELECTOR, 'body > header > nav > div > a.nav__button-secondary.btn-md.btn-secondary-emphasis').click()
