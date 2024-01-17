@@ -9,6 +9,7 @@ logging.basicConfig(format='%(asctime)s %(message)s')
 import os
 from selenium.webdriver.chrome.service import Service
 import pickle
+import random
 
 EMAIL = 'pruebaws50@gmail.com'
 PASSWORD = 'WebscrapingLinkedin50'
@@ -283,10 +284,15 @@ def scrape_user(request: ScrapeUser):
         email_field = driver.find_element(By.CSS_SELECTOR, '#username')
         password_field = driver.find_element(By.CSS_SELECTOR, '#password')
         
+        def escribir_letra_por_letra(campo, texto):
+            for caracter in texto:
+                campo.send_keys(caracter)
+                time.sleep(random.random())
+
         time.sleep(1.37492)
-        email_field.send_keys(EMAIL)
+        escribir_letra_por_letra(email_field, EMAIL)
         time.sleep(2.78549)
-        password_field.send_keys(PASSWORD)
+        escribir_letra_por_letra(password_field, PASSWORD)
         time.sleep(2.127302)
         logging.info("Escribí correo y contraseña")
         print("Escribí correo y contraseña")
