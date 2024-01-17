@@ -33,7 +33,6 @@ options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option("useAutomationExtension", False) 
 driver = webdriver.Chrome(service = Service(os.environ.get("CHROMEDRIVER_PATH")), options=options)
 driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})") 
-driver.set_preference("general.useragent.override", "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko")
 # driver = webdriver.Chrome(options=options)
 app = FastAPI()
 
