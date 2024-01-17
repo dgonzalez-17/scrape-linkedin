@@ -8,7 +8,7 @@ from pydantic import BaseModel
 logging.basicConfig(format='%(asctime)s %(message)s')
 import os
 from selenium.webdriver.chrome.service import Service
-import pickle
+import pickle as pkl
 import random
 
 EMAIL = 'pruebaws50@gmail.com'
@@ -270,7 +270,7 @@ def scrape_user(request: ScrapeUser):
 
     try:
         driver.get('https://www.linkedin.com/checkpoint/rm/sign-in-another-account')
-        cookies = pickle.load(open("cookies.pkl", "rb"))
+        cookies = pkl.load(open("cookies.pkl", "rb"))
         for cookie in cookies:
             driver.add_cookie(cookie)
         time.sleep(5)
@@ -297,7 +297,7 @@ def scrape_user(request: ScrapeUser):
     
 
     driver.get(url)
-    cookies = pickle.load(open("cookies.pkl", "rb"))
+    cookies = pkl.load(open("cookies.pkl", "rb"))
     for cookie in cookies:
         driver.add_cookie(cookie)
     time.sleep(5)
