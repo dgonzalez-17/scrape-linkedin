@@ -267,12 +267,13 @@ def scrape_company(request: ScrapeCompany):
         cultura = driver.find_element(By.CSS_SELECTOR, '#main-content > section.core-rail.mx-auto.papabear\:w-core-rail-width.mamabear\:max-w-\[790px\].babybear\:max-w-\[790px\] > div > section:nth-child(4) > div > div > div:nth-child(1) > p').text
     except:
         logging.warning( 'Click interceptado Cultura')
-
-    driver.close()
+    try:
+        driver.close()
+    except:
+        pass
 
     empresa = {'name':nombre_empresa, 'headquarters':sede, 'followers':seguidores, 'sector':sector, 'description':descripcion, 'website':sitio_web, 'size':tamano,
             'type':tipo, 'specialties':especialidades, 'locations':locations, 'associated_pages':associated_pages, 'similar_pages':similar_pages, 'investments':investments, 'culture':cultura}
-    driver.close()
     return empresa
 
 @app.post("/user/")
@@ -633,5 +634,8 @@ def scrape_user(request: ScrapeUser):
 
     persona = {'name':nombre_usuario, 'caption':caption, 'topics':topics, 'institutions':institutions, 'location':ubicacion,'website':website,
             'about':acerca_de, 'experiencies':experiencies, 'education':educaciones, 'projects':proyectos, 'skills':conocimientos,'publications':publicaciones, 'charity':causas, 'honors':logros, 'languages':idiomas}
-    driver.close()
+    try:
+        driver.close()
+    except:
+        pass
     return persona
