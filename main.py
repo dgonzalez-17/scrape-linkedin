@@ -59,6 +59,7 @@ class ScrapeUser(BaseModel):
 @app.post("/company/")
 def scrape_company(request: ScrapeCompany):
     url = request.url
+    driver = webdriver.Chrome(service = Service(os.environ.get("CHROMEDRIVER_PATH")), options=options)
     driver.get(url)
     cookies = pkl.load(open("cookies.pkl", "rb"))
     for cookie in cookies:
@@ -271,12 +272,13 @@ def scrape_company(request: ScrapeCompany):
 
     empresa = {'name':nombre_empresa, 'headquarters':sede, 'followers':seguidores, 'sector':sector, 'description':descripcion, 'website':sitio_web, 'size':tamano,
             'type':tipo, 'specialties':especialidades, 'locations':locations, 'associated_pages':associated_pages, 'similar_pages':similar_pages, 'investments':investments, 'culture':cultura}
-
+    driver.close()
     return empresa
 
 @app.post("/user/")
 def scrape_user(request: ScrapeUser):
     url = request.url
+    driver = webdriver.Chrome(service = Service(os.environ.get("CHROMEDRIVER_PATH")), options=options)
 
     try:
         driver.get('https://www.linkedin.com/checkpoint/rm/sign-in-another-account')
@@ -631,6 +633,5 @@ def scrape_user(request: ScrapeUser):
 
     persona = {'name':nombre_usuario, 'caption':caption, 'topics':topics, 'institutions':institutions, 'location':ubicacion,'website':website,
             'about':acerca_de, 'experiencies':experiencies, 'education':educaciones, 'projects':proyectos, 'skills':conocimientos,'publications':publicaciones, 'charity':causas, 'honors':logros, 'languages':idiomas}
-    import pickle
-    pickle.dump(driver.get_cookies(), open('cookies.pkl', 'wb'))
+    driver.close()
     return persona
