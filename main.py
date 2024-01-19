@@ -15,8 +15,10 @@ import random
 
 
 
-EMAIL = 'pruebaws50@gmail.com'
-PASSWORD = 'WebscrapingLinkedin50'
+#EMAIL = 'pruebaws50@gmail.com'
+#PASSWORD = 'WebscrapingLinkedin50'
+EMAIL = 'lebridgeintegration@gmail.com'
+PASSWORD = 'Integrations2024-new'
 
 
 # chrome_driver_path = 'chromedriver.exe'
